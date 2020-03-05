@@ -48,7 +48,7 @@ def new_post(request):
         return render(request, 'new_post.html', {'form': form})
     # if this is not a POST request, display a blank PostForm
     form = PostForm()
-    return render(request, 'new_post.html', {'form': form, 'mode': 'add'})
+    return render(request, 'new_post.html', {'form': form})
 
 
 def profile(request, username):
@@ -112,4 +112,4 @@ def post_edit(request, username, post_id):
 
     # if this is not a POST request, pre-populate form with post object's data.
     form = PostForm(instance=post_object)
-    return render(request, 'new_post.html', {'form': form, 'mode': 'edit'})
+    return render(request, 'new_post.html', {'form': form, 'post': post_object})
