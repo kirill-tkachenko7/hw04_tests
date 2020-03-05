@@ -74,20 +74,20 @@ class PostEditTest(TestCase):
 
     def test_edit_post_anonymous(self):
         self.client.logout()
-        response = self.client.get(f'/john/{self.post.id}/edit')
+        response = self.client.get(f'/john/{self.post.id}/edit/')
         self.assertRedirects(response,
-            f'/auth/login/?next=/john/{self.post.id}/edit',
+            f'/auth/login/?next=/john/{self.post.id}/edit/',
             msg_prefix='anonymous user is not redirected to login page')
 
     def test_edit_post_authenticated(self):
         if self.client.login(username='john', password='54321'):
-            response = self.client.get(f'/john/{self.post.id}/edit')
+            response = self.client.get(f'/john/{self.post.id}/edit/')
             self.assertEqual(response.status_code, 200, 'Authenticated user must be able to edit posts')
 
             # edit post and test that it was updated in the db
             orig_text = self.post.text
             new_text = "That's great see your getting it. И немного кириллицы для остроты ощущений"
-            self.client.post(f'/john/{self.post.id}/edit', {'text': new_text})
+            self.client.post(f'/john/{self.post.id}/edit/', {'text': new_text})
             self.post.refresh_from_db() # reload post after it was updated
             self.assertEqual(self.post.text, new_text)
             

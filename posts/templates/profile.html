@@ -25,7 +25,7 @@
                                 <a class="btn btn-sm text-muted" href="/{{ profile.username }}/{{ post.id }}/" role="button">Добавить комментарий</a>
                                 <!-- Ссылка на редактирование, показывается только автору записи -->
                                 {% if user.username == profile.username %}
-                                    <a class="btn btn-sm text-muted" href="/{{ profile.username }}/{{ post.id }}/edit" role="button">Редактировать</a>
+                                    <a class="btn btn-sm text-muted" href="/{{ profile.username }}/{{ post.id }}/edit/" role="button">Редактировать</a>
                                 {% endif %}
                             </div>
                             <!-- Дата публикации  -->
