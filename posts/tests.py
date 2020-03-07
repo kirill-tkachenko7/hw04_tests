@@ -76,9 +76,19 @@ class PostEditTest(TestCase):
         self.client.logout()
         response = self.client.get(f'/john/{self.post.id}/edit/')
         self.assertRedirects(response,
-            f'/auth/login/?next=/john/{self.post.id}/edit/',
-            msg_prefix='anonymous user is not redirected to login page')
+            f'/john/{self.post.id}/',
+            msg_prefix='anonymous user is not redirected to post view')
 
+    def test_edit_post_wrong_user(self):
+        user = User.objects.create_user(username='not_an_author', email='test@mail.ru', password='qwerty')
+        if self.client.login(username='not_an_author', password='qwerty'):
+            response = self.client.get(f'/john/{self.post.id}/edit/')
+            self.assertRedirects(response,
+                f'/john/{self.post.id}/',
+                msg_prefix='wrong user is not redirected to post view')
+        else:
+            self.assertTrue(False, 'Failed to authenticate test user')
+                
     def test_edit_post_authenticated(self):
         if self.client.login(username='john', password='54321'):
             response = self.client.get(f'/john/{self.post.id}/edit/')
