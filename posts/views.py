@@ -99,4 +99,4 @@ def post_edit(request, username, post_id):
         return render(request, 'edit_post.html', {'form': form, 'post': post_object})
 
     form = PostForm(instance=post_object)
-    return render(request, 'edit_post.html', {'form': form})
+    return render(request, 'edit_post.html', {'form': form, 'post': post_object})

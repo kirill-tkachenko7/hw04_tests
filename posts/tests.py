@@ -120,5 +120,3 @@ class PostEditTest(TestCase):
 
         else:
             self.assertTrue(False, 'Failed to authenticate test user')
-
-
